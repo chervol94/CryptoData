@@ -26,10 +26,10 @@ Route::get('/', function(){
 */
 
 Route::get('/help',[LaravelHelpController::class,'index']);
-Route::get('/',[RawDataController::class,'index']);
+Route::get('/market',[RawDataController::class,'index']);
 Route::get('/coin/{id}',[RawDataController::class,'select']);
 Route::get('/coin/{id}/{cur}',[RawDataController::class,'price']);
-Route::get('/market',[RawDataController::class,'market']);
+Route::get('/',[RawDataController::class,'market']);
 
 
 

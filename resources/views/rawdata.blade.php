@@ -1,9 +1,9 @@
 @extends('layouts.mainlayout')
 
 @section('mainContent')
-    <a href="/market">
+    <!--<a href="/market">
     <button>Go to Market Cap</button>
-    </a>
+    </a>-->
     <table border=1>
     @foreach ($coins as $coin)
         <tr>
