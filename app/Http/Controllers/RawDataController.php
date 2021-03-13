@@ -30,7 +30,7 @@ class RawDataController extends Controller{
     return view ('rawdata',['coins' => $data1]);
     }
 
-    public function price($id,$cur){
+    public function price($locale,$cryptoid,$cur){
         /*$list = $this->basicCall();
         $coinprices = [];
         $count = 0;
@@ -48,13 +48,15 @@ class RawDataController extends Controller{
            } 
         }
         dd($coinprices);*/
-        $valuemoney = $this->clientGeckoCoin->simple()->getPrice($id, $cur);
+        //die($cryptoid);
+        $valuemoney = $this->clientGeckoCoin->simple()->getPrice($cryptoid, $cur);
         //dd($valuemoney);
-        return view ('price',['id' => $id, 'data' => $valuemoney]);
+        return view ('price',['cryptoid' => $cryptoid, 'data' => $valuemoney]);
     }
 
-    public function select($id){
-        return view ('currency',['id' => $id]);
+    public function select($locale,$cryptoid){
+        //die($cryptoid);
+        return view ('currency',['cryptoid' => $cryptoid]);
     }
 
     public function market(){

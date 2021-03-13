@@ -1,8 +1,10 @@
 <?php
 
+
+//use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LaravelHelpController;
 use App\Http\Controllers\RawDataController;
+use App\Http\Controllers\LaravelHelpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,22 @@ Route::get('/', function(){
 });
 
 */
+/*Route::redirect('/', function(){
+    //die(App::getLocale());
+    return "/en";
+});*/
 
-Route::get('/help',[LaravelHelpController::class,'index']);
-Route::get('/market',[RawDataController::class,'index']);
-Route::get('/coin/{id}',[RawDataController::class,'select']);
-Route::get('/coin/{id}/{cur}',[RawDataController::class,'price']);
-Route::get('/',[RawDataController::class,'market']);
+
+Route::redirect('/', '/en');
+Route::prefix('{locale}')->group(function () {
+
+    Route::get('/help',[LaravelHelpController::class,'index']);
+    Route::get('/market',[RawDataController::class,'index']);
+    Route::get('/coin/{cryptoid}',[RawDataController::class,'select']);
+    Route::get('/coin/{cryptoid}/{cur}',[RawDataController::class,'price']);
+    Route::get('/',[RawDataController::class,'market']);
+});
+
 
 
 

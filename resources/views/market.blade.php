@@ -2,7 +2,7 @@
 @extends('layouts.mainlayout')
 
 @section('mainContent')
-    <h1>Market</h1>
+    <h1>{{ __('Cryptocurrency Prices & Details') }}</h1>
     @foreach ($market as $coin)
         <table border=1>
         @foreach ($coin as $key => $value)

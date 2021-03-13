@@ -11,7 +11,7 @@
             @if($key != 'id')
                 <td>{{$key}}    -   {{$value}}</td>
                 @else
-                <td><a href="/coin/{{$value}}">GO TO PRICE</a></td>
+                <td><a href="coin/{{$value}}">GO TO PRICE</a></td>
             @endif
         @endforeach
         <tr>
