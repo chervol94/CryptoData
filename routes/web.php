@@ -36,10 +36,12 @@ Route::redirect('/', '/en');
 Route::prefix('{locale}')->group(function () {
 
     Route::get('/help',[LaravelHelpController::class,'index']);
-    Route::get('/market',[RawDataController::class,'index']);
+    Route::get('/list',[RawDataController::class,'index']);
     Route::get('/coin/{cryptoid}',[RawDataController::class,'select']);
     Route::get('/coin/{cryptoid}/{cur}',[RawDataController::class,'price']);
-    Route::get('/',[RawDataController::class,'market']);
+    Route::get('/market',[RawDataController::class,'market']);
+    Route::get('/',[RawDataController::class,'dataTest']);
+
 });
 
 

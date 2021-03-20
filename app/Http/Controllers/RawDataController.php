@@ -25,8 +25,7 @@ class RawDataController extends Controller{
 
     public function index(){
         $data1 = $this->basicCall();
-        //$client2 = new CoinGeckoClient();
-        //dd($client2->simple()->getPrice('bitcoin', 'usd'));
+        //dd($data1);
     return view ('rawdata',['coins' => $data1]);
     }
 
@@ -55,13 +54,19 @@ class RawDataController extends Controller{
     }
 
     public function select($locale,$cryptoid){
-        //die($cryptoid);
         return view ('currency',['cryptoid' => $cryptoid]);
     }
 
     public function market(){
         $marketvalues = $this->clientGeckoCoin->coins()->getMarkets('usd');
+        //dd($marketvalues);
         return view ('market',['market' => $marketvalues]);
+    }
+
+    public function dataTest(){
+        $result = $this->clientGeckoCoin->coins()->getCoin('skycoin', ['tickers' => 'false', 'market_data' => 'true']);
+        dd($result);
+        return view('test',[ 'coindata' => $result ]);
     }
 
     

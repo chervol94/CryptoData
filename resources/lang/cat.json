@@ -1,12 +1,15 @@
 {
     "Hello" : "Hola",
     "Market Cap" : "Mercat",
-    "Search" : "Buscar",
+    "Search" : "Cerca",
     "Spanish" : "Castellà",
     "English" : "Anglès",
     "Catalan" : "Català",
     "Language" : "Idioma",
-    "Cryptocurrency Prices & Details" : "Preus i Detalls de Criptomonedas"
-
+    "Top 100 Cryptocurrency By Market Cap" : "Top 100 Criptomonedas segons capitalització de mercat",
+    "Coin" : "Moneda",
+    "Symbol" : "Símbol",
+    "Price" : "Preu",
+    "Market Cap." : "Cap. de Mercat"
 }
     

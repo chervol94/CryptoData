@@ -25,7 +25,7 @@
                 <a class="nav-link" aria-current="page" href="/{{App::getLocale()}}/market">{{ __('Market Cap') }}</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/{{App::getLocale()}}/list">{{__('All')}}</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
