@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 //use App\Models\LaravelHelpController;
 //use App\Models\
+
+use App\Services\GenerateThumbGraphService;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 
 class RawDataController extends Controller{
@@ -20,6 +22,7 @@ class RawDataController extends Controller{
 
     private function basicCall(){
         $data = $this->clientGeckoCoin->coins()->getList();
+        dd($data);
         return $data;
     }
 
@@ -57,15 +60,10 @@ class RawDataController extends Controller{
         return view ('currency',['cryptoid' => $cryptoid]);
     }
 
-    public function market(){
-        $marketvalues = $this->clientGeckoCoin->coins()->getMarkets('usd');
-        //dd($marketvalues);
-        return view ('market',['market' => $marketvalues]);
-    }
-
     public function dataTest(){
         $result = $this->clientGeckoCoin->coins()->getCoin('skycoin', ['tickers' => 'false', 'market_data' => 'true']);
-        dd($result);
+        //$alive = $this->thumbGraph->getLiveSignal();
+        //dd($alive);
         return view('test',[ 'coindata' => $result ]);
     }
 

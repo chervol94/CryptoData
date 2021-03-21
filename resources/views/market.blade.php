@@ -11,8 +11,11 @@
                 <th scope="col">{{ __('Coin') }}</th>
                 <th scope="col">{{ __('Symbol') }}</th>
                 <th scope="col">{{ __('Price') }}</th>
+                <th scope="col">1h</th>
                 <th scope="col">24h</th>
+                <th scope="col">7d</th>
                 <th scope="col">{{ __('Market Cap.') }}</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -28,16 +31,30 @@
                             <td>${{number_format($coin['current_price'],2)}}</td> 
                         @endif
 
+                        @if ($coin['price_change_percentage_1h_in_currency'] < 0)
+                            <td class="text-danger">{{number_format($coin['price_change_percentage_1h_in_currency'],2,'.','')}}%</td>
+                        @else
+                            <td class="text-success">{{number_format($coin['price_change_percentage_1h_in_currency'],2,'.','')}}%</td>
+                        @endif
+
                         @if ($coin['price_change_percentage_24h'] < 0)
                             <td class="text-danger">{{number_format($coin['price_change_percentage_24h'],2,'.','')}}%</td>
                         @else
                             <td class="text-success">{{number_format($coin['price_change_percentage_24h'],2,'.','')}}%</td>
                         @endif
+
+                        @if ($coin['price_change_percentage_7d_in_currency'] < 0)
+                            <td class="text-danger">{{number_format($coin['price_change_percentage_7d_in_currency'],2,'.','')}}%</td>
+                        @else
+                            <td class="text-success">{{number_format($coin['price_change_percentage_7d_in_currency'],2,'.','')}}%</td>
+                        @endif
+
                         @if (App::getLocale() != 'en')
                             <td>{{number_format($coin['market_cap'],0,',','.')}}$</td>
                         @else
                             <td>${{number_format($coin['market_cap'])}}</td>
                         @endif
+                            <td>{{printf($graphs['ethereum'])}}</td>
                         
                     </tr>
                 @endforeach
@@ -63,15 +80,15 @@
                 <php $count = 1 ?>
                 foreach ($market as $coin)
                     <tr>
-                    <th scope="row">$count}}</th>
+                    <th scope="row">{$count}}</th>
                     foreach ($coin as $key => $value)
                         if (!is_array($value))
-                            <td>$key}} -> $value}}</td>
+                            <td>{$key}} -> {$value}}</td>
                         endif
                     endforeach
                     <php $count++?>
                     </tr>
                 endforeach
             </tbody>
-        </table>-->
+        </table>->
 @endsection    

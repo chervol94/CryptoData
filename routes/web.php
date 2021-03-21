@@ -3,6 +3,7 @@
 
 //use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MarketController;
 use App\Http\Controllers\RawDataController;
 use App\Http\Controllers\LaravelHelpController;
 
@@ -39,7 +40,7 @@ Route::prefix('{locale}')->group(function () {
     Route::get('/list',[RawDataController::class,'index']);
     Route::get('/coin/{cryptoid}',[RawDataController::class,'select']);
     Route::get('/coin/{cryptoid}/{cur}',[RawDataController::class,'price']);
-    Route::get('/market',[RawDataController::class,'market']);
+    Route::get('/market',[MarketController::class,'market']);
     Route::get('/',[RawDataController::class,'dataTest']);
 
 });
