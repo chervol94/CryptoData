@@ -54,7 +54,8 @@
                         @else
                             <td>${{number_format($coin['market_cap'])}}</td>
                         @endif
-                            <td>{{print($graphs[$coin['id']])}}</td>
+                            <!--<td>{print($graphs[$coin['id']])}}</td>-->
+                            <td><img src="{{asset('storage/graphs/'.date('Ymd',time())."_".$coin['id'].'.svg')}}" alt=""></td>
                         
                     </tr>
                 @endforeach
