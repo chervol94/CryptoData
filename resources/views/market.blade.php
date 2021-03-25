@@ -19,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach ($market as $coin)
+                @foreach ($market as $key => $coin)
                     <tr>
                     <th scope="row">{{$coin['market_cap_rank']}}</th>
                         <td><img src="{{str_replace('large','thumb', $coin['image'])}}"/> {{$coin['name']}}</td>
@@ -54,7 +54,7 @@
                         @else
                             <td>${{number_format($coin['market_cap'])}}</td>
                         @endif
-                            <td>{{printf($graphs['ethereum'])}}</td>
+                            <td>{{print($graphs[$coin['id']])}}</td>
                         
                     </tr>
                 @endforeach

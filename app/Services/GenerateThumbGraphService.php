@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class GenerateThumbGraphService
 {
@@ -44,12 +46,22 @@ class GenerateThumbGraphService
                 $normalisedPrice[$id][$i] = abs((abs($newPrice * 50)) - 50);
                 $img .= " $i,$valueTest ";
             }
-            //dd($normalisedPrice);
-            $img .="' fill='none' stroke='#ed5565' stroke-width='1.25'/></svg>";
+            //dd($normalisedPrice[$id]);
+            if(reset($normalisedPrice[$id]) < end($normalisedPrice[$id])){
+                $color = '#ed5565';
+            }else{
+                $color = '#57bd0f';
+            }
+            $img .="' fill='none' stroke='$color' stroke-width='1.25'/></svg>";
             $graphArray[$id] = $img;
             //printf($img);
+            //dd(public_path());
+            //Storage::putFileAs('a', new File('/public/images/graphs'), 'DATE_ID.jpg');
+            //Storage::disk('public') -> put('/graphs/image.jpg',$request->file('image'));
+            //echo asset('storage/file.txt');
             
         }
+        Storage::disk('public')->put('example.txt', 'Contents');
         $this->finishedGraphData = $graphArray;
     }
 
