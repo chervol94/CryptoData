@@ -30,7 +30,14 @@
                 <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
-                <?php 
+                
+                <!--<li class="nav-item">
+                    <a href="/es{$path}}" class="nav-link">ES {$path}}</a> 
+                </li>-->
+                
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <?php 
                       $value = Request::path();
                       $path = strstr($value,'/');
                       //dd($path);
@@ -52,12 +59,22 @@
                       <li><a class="dropdown-item" href="/cat{{$path}}">{{ __('Catalan') }}</a></li>
                   </ul>
                 </li>
-                <!--<li class="nav-item">
-                    <a href="/es{{$path}}" class="nav-link">ES {{$path}}</a> 
-                </li>-->
-                
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Currency
+                  </a>
+                  
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href=""> EUR </a></li>
+                      <li><a class="dropdown-item" href=""> GBP </a></li>
+                      <li><a class="dropdown-item" href=""> JPY </a></li>
+                      <li><a class="dropdown-item" href=""> RUB </a></li>
+                      <li><a class="dropdown-item" href=""> CAD </a></li>
+                      <li><a class="dropdown-item" href=""> AUD </a></li>
+                  </ul>
+                </li>
             </ul>
-            
             
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="{{ __('Search') }}" aria-label="Search">

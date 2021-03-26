@@ -4,32 +4,35 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Optional;
+use Illuminate\Support\Facades\Cookie;
 use App\Services\GenerateThumbGraphService;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
-use Illuminate\Support\Optional;
+
 
 class MarketController extends Controller{
 
     private $clientGeckoCoin;
     private $thumbGraph;
 
-    public function __construct(){
+    public function __construct(GenerateThumbGraphService $thumbGraph){
         $this->clientGeckoCoin = new CoinGeckoClient();
-        $this->thumbGraph = new GenerateThumbGraphService();
+        $this->thumbGraph = $thumbGraph;
     }
 
     public function market(){
-        $marketvalues = $this->clientGeckoCoin->coins()->getMarkets('usd',['per_page'=>'251','order'=>'market_cap_desc','price_change_percentage'=>'1h,24h,7d','sparkline'=>'true']);
+        $currency = $this->obtainCurrency();
+        $marketvalues = $this->clientGeckoCoin->coins()->getMarkets($currency,['per_page'=>'251','order'=>'market_cap_desc','price_change_percentage'=>'1h,24h,7d','sparkline'=>'true']);
         //dd($marketvalues);
         $parsedCoinId = $this->transformCoinData($marketvalues);
-        $graphsArray = $this->graphThumbGeneratorCaller($parsedCoinId);
-        return view ('market',['market' => $marketvalues, 'graphs' => $graphsArray]);
+        $this->graphThumbGeneratorCaller($parsedCoinId);
+        $date = date('Ymd',time());
+        return view ('market',['market' => $marketvalues,'date' => $date]);
     }
 
     public function graphThumbGeneratorCaller(Array $coinGraphData){
         $this->thumbGraph->setArrayData($coinGraphData);
         $this->thumbGraph->generateGraph();
-        return $this->thumbGraph->getGraphData();
     }
 
     public function transformCoinData($coinArray){
@@ -41,6 +44,16 @@ class MarketController extends Controller{
         }
         //dd($newCoinArray);
         return $newCoinArray;
+    }
+
+    public function obtainCurrency(){
+        //dd(Cookie::get('selected_currency');
+        if(Cookie::get('selected_currency') !== null){
+            return Cookie::get('selected_currency');
+        }else{
+            return 'usd';
+        }
+        
     }
 
 }
