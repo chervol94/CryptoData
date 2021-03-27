@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Optional;
 use Illuminate\Support\Facades\Cookie;
 use App\Services\GenerateThumbGraphService;
@@ -22,12 +23,13 @@ class MarketController extends Controller{
 
     public function market(){
         $currency = $this->obtainCurrency();
+        //dd($currency);
         $marketvalues = $this->clientGeckoCoin->coins()->getMarkets($currency,['per_page'=>'251','order'=>'market_cap_desc','price_change_percentage'=>'1h,24h,7d','sparkline'=>'true']);
         //dd($marketvalues);
         $parsedCoinId = $this->transformCoinData($marketvalues);
         $this->graphThumbGeneratorCaller($parsedCoinId);
         $date = date('Ymd',time());
-        return view ('market',['market' => $marketvalues,'date' => $date]);
+        return view ('market',['market' => $marketvalues,'date' => $date, 'curUsed' => $currency]);
     }
 
     public function graphThumbGeneratorCaller(Array $coinGraphData){
@@ -54,6 +56,14 @@ class MarketController extends Controller{
             return 'usd';
         }
         
+    }
+    public function marketPost(Request $request,$locale){
+        //dd($_POST['cookie']);
+        //dd($request->cookie('selected_currency'));
+        //$cookie = $request->cookie('selected_currency');
+        //$request->cookie->forget('selected_currency');
+        Cookie::queue(Cookie::make('selected_currency',$_POST['cookie'], 43800,'/',null,null,false));
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
     }
 
 }

@@ -38,7 +38,7 @@ class SetCurrency
     protected function makeMyCookie()
     {
         //dd(Cookie::make('selected_currency', 'usd', 43800));
-        return Cookie::queue(Cookie::make('selected_currency', 'usd', 43800));
+        return Cookie::queue(Cookie::make('selected_currency', 'usd', 43800,'/',null,null,false));
     }
 
     protected function hasCookie($cookie_name)

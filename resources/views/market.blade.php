@@ -2,6 +2,8 @@
 @extends('layouts.mainlayout')
 
 @section('mainContent')
+    <script src="{{ asset('js/changeCurrencyCookie.js') }}" type="text/javascript"></script>
+    
     <h2 class="text-center mt-4 mb-4">{{ __('Top 100 Cryptocurrency By Market Cap') }}</h2>
     <div style="overflow-x: auto">
         <table class="table table-responsive mx-auto" style=" width:80% ">
@@ -19,6 +21,15 @@
             </tr>
             </thead>
             <tbody>
+                <?php 
+                    if($curUsed == "eur"){$symbol = "€";}
+                    elseif ($curUsed == "usd"){$symbol = "US$";}
+                    elseif ($curUsed == "jpy"){$symbol = "¥";}
+                    elseif ($curUsed == "gbp"){$symbol = "£";}
+                    elseif ($curUsed == "rub"){$symbol = "₽";}
+                    elseif ($curUsed == "cad"){$symbol = "CA$";}
+                    elseif ($curUsed == "aud"){$symbol = "AU$";}
+                    ?>
                 @foreach ($market as $key => $coin)
                     <tr>
                     <th scope="row">{{$coin['market_cap_rank']}}</th>
@@ -26,9 +37,9 @@
                         <td>{{strtoupper($coin['symbol'])}}</td>
 
                         @if (App::getLocale() != 'en')
-                            <td>{{number_format($coin['current_price'],2,',','.')}}$</td>
+                            <td>{{number_format($coin['current_price'],2,',','.')}}{{$symbol}}</td>
                         @else
-                            <td>${{number_format($coin['current_price'],2)}}</td> 
+                            <td>{{$symbol}}{{number_format($coin['current_price'],2)}}</td> 
                         @endif
 
                         @if ($coin['price_change_percentage_1h_in_currency'] < 0)
@@ -50,9 +61,9 @@
                         @endif
 
                         @if (App::getLocale() != 'en')
-                            <td>{{number_format($coin['market_cap'],0,',','.')}}$</td>
+                            <td>{{number_format($coin['market_cap'],0,',','.')}}{{$symbol}}</td>
                         @else
-                            <td>${{number_format($coin['market_cap'])}}</td>
+                            <td>{{$symbol}}{{number_format($coin['market_cap'])}}</td>
                         @endif
                             <td><img src="{{asset('storage/graphs/'.$date."_".$coin['id'].'.svg')}}" alt=""></td>
                         

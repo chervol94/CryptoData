@@ -43,6 +43,8 @@ Route::prefix('{locale}')->group(function () {
     Route::get('/market',[MarketController::class,'market']);
     Route::get('/',[RawDataController::class,'dataTest']);
 
+    Route::post('/postmarket',[MarketController::class,'marketPost']);
+    //Route::match(['get','post'], '/market',[MarketController::class,'market']);
 });
 
 

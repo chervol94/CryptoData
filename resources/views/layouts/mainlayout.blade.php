@@ -9,6 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>CryptoData</title>
   </head>
   <body>
@@ -61,17 +64,23 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Currency
+                  <a id="cur-indicator" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (Cookie::get('selected_currency'))
+                      {{strtoupper(Cookie::get('selected_currency'))}}
+                    @else
+                        USD
+                    @endif
+                    
                   </a>
                   
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href=""> EUR </a></li>
-                      <li><a class="dropdown-item" href=""> GBP </a></li>
-                      <li><a class="dropdown-item" href=""> JPY </a></li>
-                      <li><a class="dropdown-item" href=""> RUB </a></li>
-                      <li><a class="dropdown-item" href=""> CAD </a></li>
-                      <li><a class="dropdown-item" href=""> AUD </a></li>
+                      <li id='usd_li'><a id="usd" class="dropdown-item" href="#"> USD </a></li>
+                      <li id='eur_li'><a id="eur" class="dropdown-item" href="#"> EUR </a></li>
+                      <li id='gbp_li'><a id="gbp" class="dropdown-item" href="#"> GBP </a></li>
+                      <li id='jpy_li'><a id="jpy" class="dropdown-item" href="#"> JPY </a></li>
+                      <li id='rub_li'><a id="rub" class="dropdown-item" href="#"> RUB </a></li>
+                      <li id='cad_li'><a id="cad" class="dropdown-item" href="#"> CAD </a></li>
+                      <li id='aud_li'><a id="aud" class="dropdown-item" href="#"> AUD </a></li>
                   </ul>
                 </li>
             </ul>
@@ -84,6 +93,8 @@
         </div>
         </nav>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     @yield('mainContent')
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
