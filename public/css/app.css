@@ -3,3 +3,15 @@
     height: 35px;
     width: 36px;
 }
+
+.tw-flex{
+    display: flex;
+}
+
+.text-3xl{
+    font-size: 1.4rem;
+}
+
+.text-1xl{
+    font-size: 1rem;
+}

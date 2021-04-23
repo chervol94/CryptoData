@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Optional;
 use Illuminate\Support\Facades\Cookie;
 use App\Services\GenerateThumbGraphService;
+use App\Services\ObtainCurrencyService;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 
 
@@ -15,21 +16,24 @@ class MarketController extends Controller{
 
     private $clientGeckoCoin;
     private $thumbGraph;
+    private $coinCurrencyDefiner;
 
-    public function __construct(GenerateThumbGraphService $thumbGraph){
+    public function __construct(GenerateThumbGraphService $thumbGraph, ObtainCurrencyService $coinCurrencyDefiner){
         $this->clientGeckoCoin = new CoinGeckoClient();
         $this->thumbGraph = $thumbGraph;
+        $this->coinCurrencyDefiner = $coinCurrencyDefiner;
     }
 
     public function market(){
-        $currency = $this->obtainCurrency();
+        $currency = $this->coinCurrencyDefiner->obtainCurrency();
+        $cursymbol = $this->coinCurrencyDefiner->obtainCurrencySymbol($currency);
         //dd($currency);
         $marketvalues = $this->clientGeckoCoin->coins()->getMarkets($currency,['per_page'=>'251','order'=>'market_cap_desc','price_change_percentage'=>'1h,24h,7d','sparkline'=>'true']);
         //dd($marketvalues);
         $parsedCoinId = $this->transformCoinData($marketvalues);
         $this->graphThumbGeneratorCaller($parsedCoinId);
         $date = date('Ymd',time());
-        return view ('market',['market' => $marketvalues,'date' => $date, 'curUsed' => $currency]);
+        return view ('market',['market' => $marketvalues,'date' => $date, 'curUsed' => $currency, 'symbol' => $cursymbol]);
     }
 
     public function graphThumbGeneratorCaller(Array $coinGraphData){
@@ -48,15 +52,6 @@ class MarketController extends Controller{
         return $newCoinArray;
     }
 
-    public function obtainCurrency(){
-        //dd(Cookie::get('selected_currency');
-        if(Cookie::get('selected_currency') !== null){
-            return Cookie::get('selected_currency');
-        }else{
-            return 'usd';
-        }
-        
-    }
     public function marketPost(Request $request,$locale){
         //dd($_POST['cookie']);
         //dd($request->cookie('selected_currency'));

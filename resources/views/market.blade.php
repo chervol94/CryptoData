@@ -2,7 +2,6 @@
 @extends('layouts.mainlayout')
 
 @section('mainContent')
-    <script src="{{ asset('js/changeCurrencyCookie.js') }}" type="text/javascript"></script>
     
     <h2 class="text-center mt-4 mb-4">{{ __('Top 100 Cryptocurrency By Market Cap') }}</h2>
     <div style="overflow-x: auto">
@@ -21,19 +20,14 @@
             </tr>
             </thead>
             <tbody>
-                <?php 
-                    if($curUsed == "eur"){$symbol = "€";}
-                    elseif ($curUsed == "usd"){$symbol = "US$";}
-                    elseif ($curUsed == "jpy"){$symbol = "¥";}
-                    elseif ($curUsed == "gbp"){$symbol = "£";}
-                    elseif ($curUsed == "rub"){$symbol = "₽";}
-                    elseif ($curUsed == "cad"){$symbol = "CA$";}
-                    elseif ($curUsed == "aud"){$symbol = "AU$";}
-                    ?>
+                
                 @foreach ($market as $key => $coin)
                     <tr>
                     <th scope="row">{{$coin['market_cap_rank']}}</th>
-                        <td><img src="{{str_replace('large','thumb', $coin['image'])}}"/> {{$coin['name']}}</td>
+                        <td>
+                            <img src="{{str_replace('large','thumb', $coin['image'])}}"/> 
+                            <a  class="link-dark" href="coin/{{$coin['id']}}">{{$coin['name']}}</a>
+                        </td>
                         <td>{{strtoupper($coin['symbol'])}}</td>
 
                         @if (App::getLocale() != 'en')
@@ -42,19 +36,19 @@
                             <td>{{$symbol}}{{number_format($coin['current_price'],2)}}</td> 
                         @endif
 
-                        @if ($coin['price_change_percentage_1h_in_currency'] < 0)
+                        @if ($coin['price_change_percentage_1h_in_currency'] <= 0)
                             <td class="text-danger">{{number_format($coin['price_change_percentage_1h_in_currency'],2,'.','')}}%</td>
                         @else
                             <td class="text-success">{{number_format($coin['price_change_percentage_1h_in_currency'],2,'.','')}}%</td>
                         @endif
 
-                        @if ($coin['price_change_percentage_24h'] < 0)
+                        @if ($coin['price_change_percentage_24h'] <= 0)
                             <td class="text-danger">{{number_format($coin['price_change_percentage_24h'],2,'.','')}}%</td>
                         @else
                             <td class="text-success">{{number_format($coin['price_change_percentage_24h'],2,'.','')}}%</td>
                         @endif
 
-                        @if ($coin['price_change_percentage_7d_in_currency'] < 0)
+                        @if ($coin['price_change_percentage_7d_in_currency'] <= 0)
                             <td class="text-danger">{{number_format($coin['price_change_percentage_7d_in_currency'],2,'.','')}}%</td>
                         @else
                             <td class="text-success">{{number_format($coin['price_change_percentage_7d_in_currency'],2,'.','')}}%</td>

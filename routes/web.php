@@ -2,8 +2,12 @@
 
 
 //use Illuminate\Support\Facades\App;
+
+
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\CoinDataController;
 use App\Http\Controllers\RawDataController;
 use App\Http\Controllers\LaravelHelpController;
 
@@ -38,12 +42,13 @@ Route::prefix('{locale}')->group(function () {
 
     Route::get('/help',[LaravelHelpController::class,'index']);
     Route::get('/list',[RawDataController::class,'index']);
-    Route::get('/coin/{cryptoid}',[RawDataController::class,'select']);
-    Route::get('/coin/{cryptoid}/{cur}',[RawDataController::class,'price']);
+    Route::get('/coin/{cryptoid}',[CoinDataController::class,'obtainCoinData']);
+    //Route::get('/coin/{cryptoid}/{cur}',[RawDataController::class,'price']);
     Route::get('/market',[MarketController::class,'market']);
-    Route::get('/',[RawDataController::class,'dataTest']);
+    Route::get('/',[RawDataController::class,'homeplaceholder']);
 
     Route::post('/postmarket',[MarketController::class,'marketPost']);
+    Route::post('/coin/postcoin',[CoinDataController::class,'coinPost']);
     //Route::match(['get','post'], '/market',[MarketController::class,'market']);
 });
 

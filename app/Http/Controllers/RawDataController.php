@@ -60,11 +60,8 @@ class RawDataController extends Controller{
         return view ('currency',['cryptoid' => $cryptoid]);
     }
 
-    public function dataTest(){
-        $result = $this->clientGeckoCoin->coins()->getCoin('skycoin', ['tickers' => 'false', 'market_data' => 'true']);
-        //$alive = $this->thumbGraph->getLiveSignal();
-        //dd($alive);
-        return view('test',[ 'coindata' => $result ]);
+    public function homeplaceholder(){
+        return view('home');
     }
 
     
