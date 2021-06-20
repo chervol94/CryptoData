@@ -10,7 +10,7 @@ class GraphStorageManagerService{
     private $date;
 
     public function setDate(){
-        $this->date = date('Ymd',time());
+        $this->date = date('YmdH',time());
     }
 
     // DONE implement a system that checks if the image has been saved already, and if the day is another day erases all the old images via another Service, etc 

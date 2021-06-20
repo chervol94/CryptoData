@@ -22,7 +22,7 @@ class RawDataController extends Controller{
 
     private function basicCall(){
         $data = $this->clientGeckoCoin->coins()->getList();
-        dd($data);
+        //dd($data);
         return $data;
     }
 

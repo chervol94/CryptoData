@@ -37,7 +37,7 @@
           @else
             <span class="text-success">{{number_format($coindata['market_data']['price_change_percentage_24h_in_currency']['btc'],2,'.','')}}%</span>
           @endif
-            <i class="far fa-level-up" data-icon-up-class="fa-level-up" data-icon-down-class="fa-level-down"></i>
+            <!--<i class="far fa-level-up" data-icon-up-class="fa-level-up" data-icon-down-class="fa-level-down"></i>-->
         </div>
       </div>
     </div>

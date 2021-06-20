@@ -27,12 +27,10 @@ class MarketController extends Controller{
     public function market(){
         $currency = $this->coinCurrencyDefiner->obtainCurrency();
         $cursymbol = $this->coinCurrencyDefiner->obtainCurrencySymbol($currency);
-        //dd($currency);
         $marketvalues = $this->clientGeckoCoin->coins()->getMarkets($currency,['per_page'=>'251','order'=>'market_cap_desc','price_change_percentage'=>'1h,24h,7d','sparkline'=>'true']);
-        //dd($marketvalues);
         $parsedCoinId = $this->transformCoinData($marketvalues);
         $this->graphThumbGeneratorCaller($parsedCoinId);
-        $date = date('Ymd',time());
+        $date = date('YmdH',time());
         return view ('market',['market' => $marketvalues,'date' => $date, 'curUsed' => $currency, 'symbol' => $cursymbol]);
     }
 
